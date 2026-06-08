@@ -1,0 +1,321 @@
+-- VDZ HUB V6.7 - FPS Killer Premium (SPAM DUPLO)
+-- PENTEST AUTORIZADO - MOBILE FRIENDLY
+
+local player = game.Players.LocalPlayer
+local uis = game:GetService("UserInputService")
+local lighting = game:GetService("Lighting")
+local workspace = game:GetService("Workspace")
+
+-- ===================== CONFIG =====================
+local CONFIG_ITENS = {
+    ["gummy bear"] = true,
+    ["gummy"]      = true,
+    ["taser gun"]  = true,
+    ["taser"]      = true
+}
+
+-- ===================== GUI =====================
+local gui = Instance.new("ScreenGui")
+gui.Name = "VDZHub"
+gui.ResetOnSpawn = false
+gui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+gui.DisplayOrder = 999
+gui.IgnoreGuiInset = true
+gui.Parent = player:WaitForChild("PlayerGui")
+
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0, 400, 0, 44)
+frame.Position = UDim2.new(0.5, -200, 0, 6)
+frame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+frame.BackgroundTransparency = 0.2
+frame.BorderSizePixel = 0
+frame.ClipsDescendants = true
+frame.Draggable = true
+frame.Active = true
+frame.Parent = gui
+
+Instance.new("UIStroke", frame).Thickness = 1
+Instance.new("UIStroke", frame).Color = Color3.fromRGB(175, 175, 175)
+Instance.new("UIStroke", frame).Transparency = 0.15
+Instance.new("UICorner", frame).CornerRadius = UDim.new(0, 8)
+
+local nome = Instance.new("TextLabel", frame)
+nome.Size = UDim2.new(0, 120, 1, 0)
+nome.Position = UDim2.new(0, 8, 0, 0)
+nome.BackgroundTransparency = 1
+nome.Text = "VDZ HUB V6.7"
+nome.TextColor3 = Color3.fromRGB(20, 20, 25)
+nome.Font = Enum.Font.GothamBold
+nome.TextSize = 13
+nome.TextXAlignment = Enum.TextXAlignment.Left
+
+local dLabel = Instance.new("TextLabel", frame)
+dLabel.Size = UDim2.new(0, 25, 1, 0)
+dLabel.Position = UDim2.new(0, 135, 0, 0)
+dLabel.BackgroundTransparency = 1
+dLabel.Text = "dl"
+dLabel.TextColor3 = Color3.fromRGB(50, 50, 60)
+dLabel.Font = Enum.Font.Gotham
+dLabel.TextSize = 11
+dLabel.TextXAlignment = Enum.TextXAlignment.Center
+
+local dInput = Instance.new("TextBox", frame)
+dInput.Size = UDim2.new(0, 32, 0, 20)
+dInput.Position = UDim2.new(0, 160, 0, 12)
+dInput.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+dInput.BackgroundTransparency = 0.1
+dInput.BorderSizePixel = 1
+dInput.BorderColor3 = Color3.fromRGB(155, 155, 155)
+dInput.Text = "0.2"
+dInput.TextColor3 = Color3.fromRGB(20, 20, 25)
+dInput.Font = Enum.Font.Gotham
+dInput.TextSize = 11
+dInput.ClearTextOnFocus = false
+Instance.new("UICorner", dInput).CornerRadius = UDim.new(0, 4)
+
+local resetBtn = Instance.new("TextButton", frame)
+resetBtn.Size = UDim2.new(0, 48, 0, 20)
+resetBtn.Position = UDim2.new(0, 205, 0, 12)
+resetBtn.BackgroundColor3 = Color3.fromRGB(195, 50, 50)
+resetBtn.BackgroundTransparency = 0.12
+resetBtn.BorderSizePixel = 0
+resetBtn.Text = "RESET"
+resetBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+resetBtn.Font = Enum.Font.GothamBold
+resetBtn.TextSize = 10
+Instance.new("UICorner", resetBtn).CornerRadius = UDim.new(0, 5)
+
+local lagBtn = Instance.new("TextButton", frame)
+lagBtn.Size = UDim2.new(0, 38, 0, 20)
+lagBtn.Position = UDim2.new(0, 262, 0, 12)
+lagBtn.BackgroundColor3 = Color3.fromRGB(55, 55, 135)
+lagBtn.BackgroundTransparency = 0.12
+lagBtn.BorderSizePixel = 0
+lagBtn.Text = "LAG"
+lagBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+lagBtn.Font = Enum.Font.GothamBold
+lagBtn.TextSize = 10
+Instance.new("UICorner", lagBtn).CornerRadius = UDim.new(0, 5)
+
+local startBtn = Instance.new("TextButton", frame)
+startBtn.Size = UDim2.new(0, 46, 0, 20)
+startBtn.Position = UDim2.new(0, 308, 0, 12)
+startBtn.BackgroundColor3 = Color3.fromRGB(40, 165, 60)
+startBtn.BackgroundTransparency = 0.12
+startBtn.BorderSizePixel = 0
+startBtn.Text = "START"
+startBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+startBtn.Font = Enum.Font.GothamBold
+startBtn.TextSize = 10
+Instance.new("UICorner", startBtn).CornerRadius = UDim.new(0, 5)
+
+local stopBtn = Instance.new("TextButton", frame)
+stopBtn.Size = UDim2.new(0, 40, 0, 20)
+stopBtn.Position = UDim2.new(0, 362, 0, 12)
+stopBtn.BackgroundColor3 = Color3.fromRGB(165, 50, 40)
+stopBtn.BackgroundTransparency = 0.12
+stopBtn.BorderSizePixel = 0
+stopBtn.Text = "STOP"
+stopBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+stopBtn.Font = Enum.Font.GothamBold
+stopBtn.TextSize = 10
+Instance.new("UICorner", stopBtn).CornerRadius = UDim.new(0, 5)
+
+-- Hovers
+resetBtn.MouseEnter:Connect(function() resetBtn.BackgroundTransparency = 0.03 resetBtn.BackgroundColor3 = Color3.fromRGB(220, 35, 35) end)
+resetBtn.MouseLeave:Connect(function() resetBtn.BackgroundTransparency = 0.12 resetBtn.BackgroundColor3 = Color3.fromRGB(195, 50, 50) end)
+startBtn.MouseEnter:Connect(function() startBtn.BackgroundTransparency = 0.03 startBtn.BackgroundColor3 = Color3.fromRGB(30, 190, 50) end)
+startBtn.MouseLeave:Connect(function() startBtn.BackgroundTransparency = 0.12 startBtn.BackgroundColor3 = Color3.fromRGB(40, 165, 60) end)
+stopBtn.MouseEnter:Connect(function() stopBtn.BackgroundTransparency = 0.03 stopBtn.BackgroundColor3 = Color3.fromRGB(190, 40, 30) end)
+stopBtn.MouseLeave:Connect(function() stopBtn.BackgroundTransparency = 0.12 stopBtn.BackgroundColor3 = Color3.fromRGB(165, 50, 40) end)
+lagBtn.MouseEnter:Connect(function() lagBtn.BackgroundTransparency = 0.03 lagBtn.BackgroundColor3 = Color3.fromRGB(65, 65, 160) end)
+lagBtn.MouseLeave:Connect(function() lagBtn.BackgroundTransparency = 0.12 lagBtn.BackgroundColor3 = Color3.fromRGB(55, 55, 135) end)
+
+-- ===================== ANTI-LAG =====================
+local antiLagAtivo = false
+local antiLagExecutado = false
+
+local function ativarAntiLag()
+    if antiLagExecutado then return end
+    antiLagExecutado = true
+    
+    pcall(function()
+        lighting.GlobalShadows = false
+        lighting.FogEnd = 999999999
+        lighting.FogStart = 999999999
+        lighting.Brightness = 1
+        lighting.Ambient = Color3.new(1, 1, 1)
+        lighting.Outlines = false
+        lighting.ShadowSoftness = 0
+        lighting.ClockTime = 12
+        settings().Rendering.QualityLevel = 1
+        
+        for _, v in next, workspace:GetDescendants() do
+            pcall(function()
+                if v:IsA("Sound") then
+                    v.Volume = 0
+                    v.Playing = false
+                elseif v:IsA("ParticleEmitter") or v:IsA("Trail") or v:IsA("Smoke") or v:IsA("Fire") or v:IsA("Sparkles") then
+                    v.Enabled = false
+                elseif v:IsA("BloomEffect") or v:IsA("BlurEffect") or v:IsA("SunRaysEffect") then
+                    v.Enabled = false
+                elseif v:IsA("Decal") or v:IsA("Texture") then
+                    v.Transparency = 1
+                elseif v:IsA("BasePart") then
+                    v.Material = Enum.Material.SmoothPlastic
+                    v.Reflectance = 0
+                    v.CastShadow = false
+                end
+            end)
+        end
+    end)
+end
+
+lagBtn.MouseButton1Click:Connect(function()
+    antiLagAtivo = not antiLagAtivo
+    if antiLagAtivo then
+        lagBtn.BackgroundColor3 = Color3.fromRGB(30, 165, 70)
+        ativarAntiLag()
+    else
+        lagBtn.BackgroundColor3 = Color3.fromRGB(55, 55, 135)
+    end
+end)
+
+-- ===================== LÓGICA =====================
+local ORDEM_ITENS = {
+    "Gummy Bear", "Gummy",
+    "Taser Gun", "Taser"
+}
+
+local ativo = false
+local alvos = {}
+local alvoAtual = 1
+
+local function buscarItens()
+    local resultados = {}
+    local visto = {}
+    local mochila = player:FindFirstChild("Backpack")
+    local char = player.Character
+    
+    for _, nomeBusca in ipairs(ORDEM_ITENS) do
+        local nomeLower = nomeBusca:lower()
+        local encontrado = false
+        
+        if mochila then
+            for _, obj in next, mochila:GetChildren() do
+                if obj:IsA("Tool") and not visto[obj] then
+                    if obj.Name:lower():find(nomeLower, 1, true) then
+                        visto[obj] = true
+                        table.insert(resultados, obj)
+                        encontrado = true
+                        break
+                    end
+                end
+            end
+        end
+        
+        if not encontrado and char then
+            for _, obj in next, char:GetChildren() do
+                if obj:IsA("Tool") and not visto[obj] then
+                    if obj.Name:lower():find(nomeLower, 1, true) then
+                        visto[obj] = true
+                        table.insert(resultados, obj)
+                        break
+                    end
+                end
+            end
+        end
+    end
+    
+    return resultados
+end
+
+local function equipar(item)
+    if item and item:IsA("Tool") then
+        local char = player.Character
+        if char then
+            local hum = char:FindFirstChild("Humanoid")
+            if hum then hum:EquipTool(item) end
+        end
+    end
+end
+
+local function pressionar(item)
+    if item and item:IsA("Tool") and item.Parent then
+        pcall(item.Activate, item)
+        local remote = item:FindFirstChildOfClass("RemoteEvent") or item:FindFirstChildOfClass("RemoteFunction")
+        if remote then pcall(remote.FireServer, remote) end
+    end
+end
+
+local function loopPrincipal()
+    while ativo do
+        local delay = tonumber(dInput.Text) or 0.2
+        if delay < 0.2 then delay = 0.2 end
+        
+        alvos = buscarItens()
+        
+        if #alvos > 0 then
+            if alvoAtual > #alvos then alvoAtual = 1 end
+            
+            local item = alvos[alvoAtual]
+            
+            if item then
+                equipar(item)
+                pressionar(item) -- APENAS 1 VEZ
+            end
+            
+            alvoAtual = alvoAtual + 1
+        else
+            task.wait(1)
+        end
+        
+        task.wait(delay)
+    end
+end
+
+local function resetar()
+    alvos = {}
+    alvoAtual = 1
+end
+
+-- ===================== BOTÕES =====================
+startBtn.MouseButton1Click:Connect(function()
+    if not ativo then
+        ativo = true
+        alvoAtual = 1
+        alvos = buscarItens()
+        coroutine.wrap(loopPrincipal)()
+    end
+end)
+
+stopBtn.MouseButton1Click:Connect(function()
+    ativo = false
+end)
+
+resetBtn.MouseButton1Click:Connect(function()
+    if not ativo then resetar() end
+end)
+
+dInput.FocusLost:Connect(function()
+    local val = tonumber(dInput.Text)
+    if not val or val < 0.2 then dInput.Text = "0.2"
+    elseif val > 10 then dInput.Text = "10" end
+end)
+
+-- Hotkeys
+uis.InputBegan:Connect(function(input)
+    if not uis:GetFocusedTextBox() then
+        local k = input.KeyCode
+        if k == Enum.KeyCode.T then startBtn.MouseButton1Click:Fire()
+        elseif k == Enum.KeyCode.Y then stopBtn.MouseButton1Click:Fire()
+        elseif k == Enum.KeyCode.R then resetBtn.MouseButton1Click:Fire()
+        elseif k == Enum.KeyCode.L then lagBtn.MouseButton1Click:Fire() end
+    end
+end)
+
+print("=== VDZ HUB V6.7 CARREGADO ===")
+print("SPAM: Gummy Bear (1x) -> Taser Gun (1x) -> circulo")
+print("Cada item pressionado 1 vez | Delay minimo: 0.2s")
+print("ANTI-LAG OTIMIZADO | T=Start Y=Stop R=Reset L=LAG")
+print("PENTEST AUTORIZADO")
